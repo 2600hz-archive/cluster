@@ -63,6 +63,13 @@ winkstart.module('cluster', 'deploy_mgr',
                 contentType: 'application/json',
                 verb: 'PUT'
             },
+
+            "deploy_mgr.getinstalllog":{
+                url: winkstart.apps['cluster'].api_url + '/accounts/{account_id}/servers/{server_id}/log',
+                contentType: 'application/json',
+                verb: 'GET'
+            },
+
             "deploy_mgr.user.get": {
                 url: '{api_url}/accounts/{account_id}/users/{user_id}',
                 contentType: 'application/json',
@@ -467,13 +474,13 @@ winkstart.module('cluster', 'deploy_mgr',
             
             switch (oldStatus) {
                 case 'never_run':
-                    newStatus = 'Deploy';
+                    newStatus = 'Not Setup';
                     break;
                 case 'running':
-                    newStatus = 'Running';
+                    newStatus = 'Deploying';
                     break;
                 case 'idle':
-                    newStatus = 'Update';
+                    newStatus = 'Active';
                     break;
             }
 
@@ -577,11 +584,37 @@ winkstart.module('cluster', 'deploy_mgr',
                 $.each(reply.data, function(){
                     THIS.server_count++;
                     
+                    var services = {};
+
+                    $.each(this.roles, function(i1, role){
+                        if (role == 'winkstart_deploy_opensips' || role == 'all_in_one') {
+                            services['opensips'] = 'icon green check_circle';
+                        }
+
+                        if (role == 'winkstart_deploy_whapps' || role == 'all_in_one') {
+                            services['ecallmgr'] = 'icon green check_circle';
+                            services['whapps'] = 'icon green check_circle';
+                            services['amqp'] = 'icon green check_circle';
+                            services['haproxy'] = 'icon green check_circle';
+                        }
+
+                        if (role == 'winkstart_deploy_bigcouch' || role == 'all_in_one') {
+                            services['bigcouch'] = 'icon green check_circle';
+                        }
+
+                        if (role == 'winkstart_deploy_whistle_fs' || role == 'all_in_one') {
+                            services['freeswitch'] = 'icon green check_circle';
+                        }
+                    });
+                    
                     var data = {
-                        server_name : this.hostname,
                         server_id : this.id,
+                        hostname : this.hostname,
+                        ip : this.ip,
+                        services : services,
+                        type : this.type,
                         server_state : THIS.setStatus(this.deploy_status),
-                        server_roles : THIS.getRoles(this.roles),
+                        //server_roles : THIS.getRoles(this.roles),
                         tooltip: 'Host Name: '+this.hostname + ' <br/>IP: ' + this.ip
                     };
                     

@@ -1,32 +1,17 @@
 .server {
-    width: 169px;
-    height: 121px;
-    float: left;
-    margin: 0 9px 39px;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+/*    width: 169px;
+    height: 121px;*/
+}
 
 
-    background-color: #6b6b6b;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#444444)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #6b6b6b, #444444); /* Chrome 10+, Saf5.1+ */
-    background-image: -moz-linear-gradient(top, #6b6b6b, #444444); /* FF3.6 */
-    background-image: -ms-linear-gradient(top, #6b6b6b, #444444); /* IE10 */
-    background-image: -o-linear-gradient(top, #6b6b6b, #444444); /* Opera 11.10+ */
-    background-image: linear-gradient(top, #6b6b6b, #444444);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#6b6b6b', EndColorStr='#444444'); /* IE6‚ÄìIE9 */
+/*** DELETED FROM .SERVER BY DARREN ***/
+.server_old {
 
-    text-align: center;
-
-    /*TMP*/
-    color: black;
 }
 
 .server_header {
     width: 90%;
-    height: 15%;
+/*    height: 15%;*/
     margin: auto;
     margin-top: 1%;
     color: #FFFFFF;
@@ -34,14 +19,14 @@
 
 .server_content {
     width: 96%;
-    height: 70%;
+/*    height: 70%;*/
     margin: auto;
 
-    -webkit-border-radius: 2px;
+/*    -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
-    border-radius: 2px;
+    border-radius: 2px;*/
 
-    background-color: white;
+/*    background-color: white;*/
 
     overflow: auto; 
 }
