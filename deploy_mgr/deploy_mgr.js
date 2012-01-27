@@ -671,6 +671,9 @@ winkstart.module('cluster', 'deploy_mgr',
                         
                         $('#deploy_log').html(formatted_log);
                         $('#deploy_log').show();
+                        $('#deploy_log').click(function() {
+                            $('#deploy_log').hide();
+                        });
                     });
                 });
             
