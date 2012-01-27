@@ -464,6 +464,7 @@ winkstart.module('cluster', 'deploy_mgr',
                     THIS.setLoglist(json.data.log, serverId);
                         
                     $('#'+serverId+' a.update_status').html(status);
+                    $('#'+serverId).attr('server_status', status);
                     $('#'+serverId+' div.server_footer').removeClass('Update Running Deploy').addClass(status);
                 });
             }); 
@@ -643,7 +644,7 @@ winkstart.module('cluster', 'deploy_mgr',
                         case 'Deploying':
                             alert('Server is currently being updated! Hang tight... This sometimes takes a while.');
                             break;
-                        case 'Not Active':
+                        case 'Not Setup':
                             if(confirm('Do you want to deploy 2600hz software to this server?')){
                                 winkstart.publish('deploy_mgr.updateServer',  data);
                             }
