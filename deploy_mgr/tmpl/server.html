@@ -12,12 +12,12 @@
         <div class="server_footer ${server_state}">Deployment Status : <a class="update_status" href="#">${server_state}</a></div>
     </div>-->
 
-    <div class="server columns" server_id="${server_id}" id="${server_id}">
+    <div class="server columns" server_id="${server_id}" server_status="${server_state}" id="${server_id}">
         <div class="name" tooltip="${tooltip}">${hostname.substr(0,40)}</div>
         <div class="ip">${ip}</div>
         <div class="os">CentOS 5</div>
         <div class="location">Unknown</div>
-        <div><a href="#">${server_state}</a></div>
+        <div><a href="#" class="update_status" onclick="alert('The ability to turn off a server from this tool isn\'t available yet. Sorry. Soon... Very soon...')">${server_state}</a></div>
         <div class="components">
             <div class="${services.opensips}"></div>
             <div class="${services.freeswitch}"></div>
@@ -27,6 +27,6 @@
             <div class="${services.haproxy}"></div>
             <div class="${services.bigcouch}"></div>
         </div>
-        <div class="actions"><a href="#">Log</a>&nbsp;&nbsp;&nbsp;<a href="#">Upgrade</a>&nbsp;&nbsp;&nbsp;<a class="cancel_btn" href="#"></a></div>
+        <div class="actions"><a href="#" class="log_btn">Log</a>&nbsp;&nbsp;&nbsp;<a href="#" class="upgrade_btn">Upgrade</a>&nbsp;&nbsp;&nbsp;<a class="cancel_btn" href="#"></a></div>
     </div>
 </div>

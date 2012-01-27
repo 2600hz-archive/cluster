@@ -631,24 +631,47 @@ winkstart.module('cluster', 'deploy_mgr',
                     }
                 });
 
-                $('.server_footer a.update_status').live('click', function() {                    
+                $('.server a.upgrade_btn').live('click', function() {
                     var data = $(this).parent().parent().attr('id');
-                    
-                    switch ($(this).html()) {
-                        case 'Update':
+
+                    switch ($(this).parent().parent().attr('server_status')) {
+                        case 'Active':
                             if(confirm('Do you want to update this server to the latest software version?')){
                                 winkstart.publish('deploy_mgr.updateServer',  data);
                             }
                             break;
-                        case 'Running':
-                            alert('Sever already running !');
+                        case 'Deploying':
+                            alert('Server is currently being updated! Hang tight... This sometimes takes a while.');
                             break;
-                        case 'Deploy':
-                            if(confirm('Do you want to deploy this server ?')){
+                        case 'Not Active':
+                            if(confirm('Do you want to deploy 2600hz software to this server?')){
                                 winkstart.publish('deploy_mgr.updateServer',  data);
                             }
                             break;
+                        case 'Unavailable' :
+                            alert('This server is unavailable. That means we can\'t ping or communicate/reach the server over the internet. Please make sure it is available to us.');
+                            break;
                     }  
+                });
+
+                $('.server a.log_btn').live('click', function() {
+                    var serverId = $(this).parent().parent().attr('id');
+
+                    var rest_data = {
+                        crossbar: true,
+                        account_id: winkstart.apps['auth'].account_id,
+                        server_id: serverId,
+                        data: {}
+                    };
+
+
+                    winkstart.getJSON('deploy_mgr.getinstalllog', rest_data, function (json, xhr) {
+                        formatted_log = "<div style=\"background-color: #000; padding:10px;\"><h1>Software Install/Update Log</h1><BR>\n(Note: This log is NOT realtime. It only shows the last COMPLETED update/install)<BR>\n<BR>---------------------------------<BR>\n" +
+                            json.data.replace(/\n/gm,"<BR>\n") + "<BR><BR><BR><BR></div>";
+                        
+                        $('#deploy_log').html(formatted_log);
+                        $('#deploy_log').show();
+                    });
                 });
             
                 winkstart.publish('deploy_mgr.statusServer');
