@@ -33,13 +33,13 @@ winkstart.module('cluster', 'cluster', {
         THIS.uninitialized_count = THIS._count(THIS.modules);
 
         THIS.whapp_auth(function() {
-            winkstart.publish('appnav.add', { 'name' : THIS.__module });
+            winkstart.publish('whappnav.add', { 'name' : THIS.__module });
         });
     },
     {
         /* A modules object is required for the loading routine.
          * The format is as follows:
-         * <module name>: <initialization status> 
+         * <module name>: <initialization status>
          */
         modules: {
             'deploy_mgr': false
@@ -134,7 +134,7 @@ winkstart.module('cluster', 'cluster', {
 
         // A setup_page function is required for the copy and paste code
         setup_page: function() {
-            var THIS = this; 
+            var THIS = this;
 
             winkstart.publish('cluster.module_activate', {name: 'deploy_mgr'});
         }
