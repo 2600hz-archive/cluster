@@ -78,14 +78,11 @@ winkstart.module('cluster', 'deploy_mgr',
         }
     }, // End module resource definitions
 
-
-
     /* Bootstrap routine - runs automatically when the module is first loaded */
     function(args) {
         /* Tell winkstart about the APIs you are going to be using (see top of this file, under resources */
         winkstart.registerResources(this.__whapp, this.config.resources);
     }, // End initialization routine
-
 
     /* Define the functions for this module */
     {   
@@ -249,6 +246,35 @@ winkstart.module('cluster', 'deploy_mgr',
             var THIS = this,
             servers = data.servers;
 
+
+            function set_services(roles){
+
+                var services = {};
+
+                $.each(roles, function(i1, role){
+                    if (role == 'winkstart_deploy_opensips' || role == 'all_in_one') {
+                        services['opensips'] = 'icon green check_circle';
+                    }
+
+                    if (role == 'winkstart_deploy_whapps' || role == 'all_in_one') {
+                        services['ecallmgr'] = 'icon green check_circle';
+                        services['whapps'] = 'icon green check_circle';
+                        services['amqp'] = 'icon green check_circle';
+                        services['haproxy'] = 'icon green check_circle';
+                    }
+
+                    if (role == 'winkstart_deploy_bigcouch' || role == 'all_in_one') {
+                        services['bigcouch'] = 'icon green check_circle';
+                    }
+
+                    if (role == 'winkstart_deploy_whistle_fs' || role == 'all_in_one') {
+                        services['freeswitch'] = 'icon green check_circle';
+                    }
+                });
+
+                return services;
+            }
+
             $.each(servers, function(i, v){
                 var rest_data = {};
                 rest_data.crossbar = true;
@@ -258,66 +284,30 @@ winkstart.module('cluster', 'deploy_mgr',
                 switch(v.type){
                     case 'Own':
                         winkstart.putJSON('deploy_mgr.addserver', rest_data, function (json, xhr) {
-                            if(json.status == 'success'){  
+                            if(json.status == 'success'){ 
+
                                 var data = {};
-                                data.server_name = json.data.hostname;
+                                data.hostname = json.data.hostname;
                                 data.server_id = json.data.id;
                                 data.server_state = 'never_run';
                                 data.server_roles = THIS.getRoles(json.data.roles);
                                 data.tooltip = 'Type: '+rest_data.data.type+'<br/>Host Name: '+json.data.hostname + '<br/>Ip: ' + json.data.ip;
-        
+                                data.services = set_services(json.data.roles);
+
                                 THIS.templates.server.tmpl(data).prependTo($('.cluster'));
                                 
-                                $('.server_progress', '#'+data.server_id).progressbar({
-                                    value:25
-                                });
-                                
-
                                 winkstart.publish('deploy_mgr.updateServer',  json.data.id);
 
                                 THIS.server_count++;
-                                winkstart.publish('deploy_mgr.setlink');
-        					
-                                THIS.tooltip();
         
                                 if(json.data.roles == "all_in_one" || jQuery.inArray("winkstart_deploy_whapps", json.data.roles) >= 0){
                                     THIS._changeURL(json.data.ip);
                                 }
-                            }
-                        });
-                        break;
-                    default:
-                        
-                        //FAKE FOR NOW !!!!!!!!!!!!
-                        rest_data.data.hostname = '2600hz.server'+i+'.com';
-                        rest_data.data.ip = '1.1.1.'+i;
-                        rest_data.data.password = 'password';
-                        rest_data.data.ssh_port = '22';
-                        
-                        winkstart.putJSON('deploy_mgr.addserver', rest_data, function (json, xhr) {
-                            if(json.status == 'success'){  
-                                var data = {};
-                                data.server_name = json.data.hostname;
-                                data.server_id = json.data.id;
-                                data.server_state = 'never_run';
-                                data.server_roles = THIS.getRoles(json.data.roles);
-                                data.tooltip = 'Type: '+rest_data.data.type+'<br/>Host Name: '+json.data.hostname + '<br/>Ip: ' + json.data.ip;
-        
-                                THIS.templates.server.tmpl(data).prependTo($('.cluster'));
-                                winkstart.publish('deploy_mgr.updateServer',  json.data.id);
-
-                                THIS.server_count++;
                                 winkstart.publish('deploy_mgr.setlink');
-        					
-                                THIS.tooltip();
-        
-                                if(json.data.roles == "all_in_one" || jQuery.inArray("winkstart_deploy_whapps", json.data.roles) >= 0){
-                                    THIS._changeURL(json.data.ip);
-                                }
                             }
                         });
                         break;
-                }
+                }                 
             });    
         },
         
@@ -349,7 +339,6 @@ winkstart.module('cluster', 'deploy_mgr',
                     winkstart.apps['voip'].api_url = inUrl;
                 });
             });
-            
         },
 
         deleteServer: function(serverId) {
@@ -360,12 +349,13 @@ winkstart.module('cluster', 'deploy_mgr',
                 account_id: winkstart.apps['auth'].account_id, 
                 server_id: serverId
             };
+
             winkstart.deleteJSON('deploy_mgr.deleteserver', rest_data, function (json, xhr) {
-                if(json.status == "success"){
+                //if(json.status == "success"){
                     $('#'+serverId).remove();
                     THIS.server_count--;
                     winkstart.publish('deploy_mgr.setlink');
-                }
+                //}
             });  
         },
         
@@ -679,9 +669,7 @@ winkstart.module('cluster', 'deploy_mgr',
                 });
             
                 winkstart.publish('deploy_mgr.statusServer');
-            });
-            
-             
+            }); 
         },
 		
         tooltip: function(){
