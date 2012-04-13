@@ -657,7 +657,7 @@ winkstart.module('cluster', 'deploy_mgr',
 
 
                     winkstart.getJSON('deploy_mgr.getinstalllog', rest_data, function (json, xhr) {
-                        formatted_log = "<div style=\"background-color: #000; padding:10px;\"><h1>Software Install/Update Log</h1><BR>\n(Note: This log is NOT realtime. It only shows the last COMPLETED update/install)<BR>\n<BR>---------------------------------<BR>\n" +
+                        formatted_log = "<div style=\"background-color: #000; padding:10px;margin: 100px auto;\"><h1>Software Install/Update Log</h1><BR>\n(Note: This log is NOT realtime. It only shows the last COMPLETED update/install)<BR>\n<BR>---------------------------------<BR>\n" +
                             json.data.replace(/\n/gm,"<BR>\n") + "<BR><BR><BR><BR></div>";
                         
                         $('#deploy_log').html(formatted_log);
