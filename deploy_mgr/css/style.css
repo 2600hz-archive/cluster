@@ -1,7 +1,4 @@
 @charset "UTF-8";
-/* CSS Document */
-
-
 /*************************************
 -------------DEPLOYMENT---------------
 **************************************/
@@ -60,7 +57,6 @@ a.plus {
 
 a.plus:hover {
     background-position: 0px -25px;
-
 }
 
 .cluster_container {
@@ -75,7 +71,7 @@ a.plus:hover {
     border-right: #646464 solid 1px;
     border-left: #646464 solid 1px;
     border-bottom: #646464 solid 1px;
-    
+
     background-color: #929292;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#929292), to(#d1d1d1)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #929292, #d1d1d1); /* Chrome 10+, Saf5.1+ */
@@ -90,9 +86,6 @@ a.plus:hover {
     width: 100%;
     float: left;
     margin: 0 0 10px;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
 
     background-color: #6b6b6b;
@@ -103,12 +96,7 @@ a.plus:hover {
     background-image: -o-linear-gradient(top, #6b6b6b, #444444); /* Opera 11.10+ */
     background-image: linear-gradient(top, #6b6b6b, #444444);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#6b6b6b', EndColorStr='#444444'); /* IE6‚ÄìIE9 */
-
-
-
     text-align: center;
-
-    /*TMP*/
     color: black;
 }
 
@@ -119,12 +107,6 @@ a.plus:hover {
     padding-bottom: 4px;
     font-weight: bold;
     border-bottom: black solid 1px;
-
-    /*-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;*/
-
-
     text-align: center;
 }
 
@@ -171,7 +153,7 @@ a.plus:hover {
 .cluster_pane .redundancy {
     font-weight: bold;
     font-size: 16px;
-    
+
     padding-top: 4px;
 }
 
@@ -198,7 +180,7 @@ a.plus:hover {
 .cluster_pane .columns div.components div.icon {
     padding-right: 0px;
     margin-top: 0px;
-    
+
     /* Center the 32px icon in the 60px space */
     margin-left: 14px;
     margin-right: 14px;
@@ -211,74 +193,22 @@ a.plus:hover {
     color: #05ADDC;
 }
 
-.cluster_pane .columns div.actions {
+.cluster_pane .columns div.actions_server {
     width: 100px;
 }
 
-
-
 a.add_server {
-    /*background-image: url(../img/add_server.png);*/
-    width: 170px;
-    height: 121px;
-    background-position: 0px 0px;
     display: block;
     float: left;
-    margin: 0 9px 39px;
+    margin: 50px 20px 20px;
 }
 
 a.add_server:hover {
-    background-position: 0px -121px;
-    color: #fff;
 }
 
 a.add_server h2 {
     padding: 100px 0;
     text-align: center;
-}
-
-a.remove_btn {
-    position: absolute;
-    width: 81px;
-    height: 27px;
-    background-image: url(../img/regular_btn.png);
-    text-align: center;
-    font-weight: bold;
-    line-height: 27px;
-    display: block;
-    right: 119px;
-    bottom: -44px
-}
-
-a.save_btn {
-    position: absolute;
-    width: 81px;
-    height: 27px;
-    background-image: url(../img/regular_btn.png);
-    text-align: center;
-    font-weight: bold;
-    line-height: 27px;
-    display: block;
-    right: 34px;
-    bottom: -44px;
-}
-
-a.save_btnServer {
-    background-image: url(../img/regular_btn.png);
-    width: 81px;
-    height: 27px;
-    text-align: center;
-    font-weight: bold;
-    display: block;
-    line-height: 27px;
-    margin: auto;
-    margin-top: 10px;
-    color: white;
-}
-
-a.save_btnServer:hover {
-    color: #05AFDC;
-    cursor: pointer;
 }
 
 .heading{
@@ -366,13 +296,6 @@ a.save_btnServer:hover {
     margin-left: 20px;
 }
 
-.content_form {
-    float: right;
-    width: 60%;
-    max-height: 500px;
-    overflow: auto;
-}
-
 h3 {
     text-align: center;
     margin-bottom: 10px;
@@ -392,4 +315,50 @@ input[disabled=disabled] {
 
 #ssh_port {
     width: 50px;
+}
+
+.add_cluster_dialog {
+    padding: 10px;
+}
+
+.add_cluster_dialog .buttons {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.first_server_dialog {
+    padding: 15px;
+}
+
+.first_server_dialog .type_wrapper {
+    float: left;
+    width: 270px;
+    margin-right: 30px;
+}
+
+.first_server_dialog hr {
+    border-bottom: none;
+    margin: 10px 0;
+}
+
+.first_server_dialog .form_wrapper {
+    float: left;
+    margin: 10px 0;
+}
+
+.first_server_dialog .form_wrapper .content_form {
+    width: 400px;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.first_server_dialog .form_wrapper .content_form label {
+    color: #333;
+}
+
+.first_server_dialog .form_wrapper .content_form h3 {
+    color: #05addc;
+    text-shadow: none;
 }
