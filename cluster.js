@@ -34,6 +34,7 @@ winkstart.module('cluster', 'cluster', {
 
         THIS.whapp_auth(function() {
             winkstart.publish('whappnav.add', { 'name' : THIS.__module });
+            THIS.initialization_check();
         });
     },
     {
@@ -60,9 +61,11 @@ winkstart.module('cluster', 'cluster', {
 
             THIS.is_initialized = true;
 
-            winkstart.publish('subnav.show', THIS.__module);
+            //winkstart.publish('subnav.show', THIS.__module);
 
-            THIS.setup_page();
+            if(winkstart.apps['cluster'].default){
+                THIS.setup_page();
+            }
         },
 
         activate: function() {
