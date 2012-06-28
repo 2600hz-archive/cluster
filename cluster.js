@@ -63,7 +63,8 @@ winkstart.module('cluster', 'cluster', {
 
             //winkstart.publish('subnav.show', THIS.__module);
 
-            if(winkstart.apps['cluster'].default){
+            if(winkstart.apps['cluster']['default']){
+                $('[data-whapp="cluster"] > a').addClass('activate');
                 THIS.setup_page();
             }
         },
